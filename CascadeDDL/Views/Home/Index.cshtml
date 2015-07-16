@@ -1,0 +1,25 @@
+﻿<br /><br /><hr />
+<a href="/CascadeDDL/CascadeCategory" class="btn btn-primary">CascadeDDL</a><br /><br />
+<a href="/CascadeDDlModal/CascadeModal" class="btn btn-default btn-modal">CascadeDDL Model</a>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLable" aria-hidden="true">
+    <div class="modal-dialog">
+
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(function () {
+            $(".btn-modal").click(function (e) {
+                e.preventDefault();
+
+                var href = $(this).attr('href');
+                $(".modal-dialog").load(href, function () {
+                    $("#myModal").modal('show');
+                });
+                return false;
+            })
+        });
+    </script>
+}

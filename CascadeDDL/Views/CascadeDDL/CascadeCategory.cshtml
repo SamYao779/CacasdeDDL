@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "CascadeCategory";
+}
+
+<h2>CascadeDropDownList</h2>
+<div class="form-group">
+    <label>Category :</label>
+    @Html.DropDownList("Cate", null, "--- Select Category ---", new { @class = "form-control" })
+</div>
+<div class="form-group">
+    <label>Product :</label>
+    @Html.DropDownList("Prod", new SelectList(string.Empty, "Id", "Name"), new { @class = "form-control" })
+</div>
+
+
+@section Scripts{
+    <script>
+        $("#Cate").change(function () {
+            var id = $(this).val();
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("CascadeProduct")",
+                data: { Id: id },
+                success: function (data) {
+                    var item = "<option>--- Select Product ---</option>";
+                    $(data).each(function (key, val) {
+                        item += "<option value='" + val.Value + "'>" + val.Text + "</option>";
+                    });
+                    $("#Prod").html(item);
+                },
+                error: function (ex) {
+                    alert("failed" + ex.responseText);
+                }
+            });
+            return false;
+        });
+    </script>
+}
